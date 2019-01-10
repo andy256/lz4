@@ -205,11 +205,6 @@ func CompressBlock(src, dst []byte, hashTable []int) (di int, err error) {
 		}
 	}
 
-	if anchor == 0 {
-		// Incompressible.
-		return 0, nil
-	}
-
 	// Last literals.
 	lLen := len(src) - anchor
 	if lLen < 0xF {
@@ -226,10 +221,6 @@ func CompressBlock(src, dst []byte, hashTable []int) (di int, err error) {
 	di++
 
 	// Write the last literals.
-	if di >= anchor {
-		// Incompressible.
-		return 0, nil
-	}
 	di += copy(dst[di:], src[anchor:])
 	return di, nil
 }
@@ -366,11 +357,6 @@ func CompressBlockHC(src, dst []byte, depth int) (di int, err error) {
 		}
 	}
 
-	if anchor == 0 {
-		// Incompressible.
-		return 0, nil
-	}
-
 	// Last literals.
 	lLen := len(src) - anchor
 	if lLen < 0xF {
@@ -388,10 +374,6 @@ func CompressBlockHC(src, dst []byte, depth int) (di int, err error) {
 	di++
 
 	// Write the last literals.
-	if di >= anchor {
-		// Incompressible.
-		return 0, nil
-	}
 	di += copy(dst[di:], src[anchor:])
 	return di, nil
 }
